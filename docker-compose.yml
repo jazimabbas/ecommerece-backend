@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  db:
+    image: mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+      - MYSQL_USER=root
+    volumes:
+      - "ecommerece_app:/var/lib/mysql"
+    ports:
+      - "3306:3306"
+
+volumes:
+  ecommerece_app:
