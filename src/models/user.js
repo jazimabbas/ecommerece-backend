@@ -1,7 +1,18 @@
 const { Model, DataTypes } = require("sequelize");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const config = require("config");
 
 class User extends Model {
+  getJwtToken() {
+    const fields = {
+      id: this.id,
+      name: this.name,
+      email: this.email,
+    };
+    return jwt.sign(fields, config.get("jwt.secret"));
+  }
+
   async getHashedPassword() {
     const salt = await bcrypt.genSalt();
     return await bcrypt.hash(this.password, salt);

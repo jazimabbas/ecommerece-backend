@@ -9,10 +9,13 @@ async function register(req, res) {
 }
 
 async function login(req, res) {
-  console.log("email: ", req.body.email);
   const cleanFields = await validate(validations.loginSchema, req.body);
   const user = await authService.login(cleanFields);
-  res.send({ user });
+
+  const { dataValues } = user;
+  const { password, ...userFields } = dataValues;
+  const token = user.getJwtToken();
+  res.send({ user: { ...userFields, token } });
 }
 
 module.exports = { register, login };

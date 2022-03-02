@@ -14,5 +14,8 @@
     },
 
     "forceSync": false
+  },
+  "jwt": {
+    "secret": "my-secret-key"
   }
 }
