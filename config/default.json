@@ -13,6 +13,6 @@
       "freezeTableName": true
     },
 
-    "forceSync": true
+    "forceSync": false
   }
 }
