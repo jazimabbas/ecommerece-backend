@@ -1,23 +1,14 @@
 const config = require("config");
-const { Sequelize, DataTypes, Model } = require("sequelize");
+const { Sequelize } = require("sequelize");
+const user = require("./user");
 
 const sequelize = new Sequelize({ ...config.get("db") });
 
-class User extends Model {}
-
-User.init(
-  {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-  },
-  { sequelize, tableName: "users", timestamps: false }
-);
+// initialized all the models here..
+user.getModel(sequelize);
 
 const db = {};
 db.sequelize = sequelize;
-db.User = User;
+db.User = user.User;
 
 module.exports = db;
