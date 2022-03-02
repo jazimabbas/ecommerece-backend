@@ -8,4 +8,11 @@ async function register(req, res) {
   res.send({ message: "Successfully user is registered" });
 }
 
-module.exports = { register };
+async function login(req, res) {
+  console.log("email: ", req.body.email);
+  const cleanFields = await validate(validations.loginSchema, req.body);
+  const user = await authService.login(cleanFields);
+  res.send({ user });
+}
+
+module.exports = { register, login };
