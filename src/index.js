@@ -1,10 +1,14 @@
 const config = require("config");
 const express = require("express");
+require("express-async-errors");
 const db = require("./models");
 const allRoutes = require("./routes");
+const catchUnhandleExceptions = require("./middlewares/exception-handling");
 
 const app = express();
+app.use(express.json());
 app.use("/", allRoutes);
+app.use(catchUnhandleExceptions);
 
 async function bootstrap() {
   console.log("Please wait for the server and db to run");
