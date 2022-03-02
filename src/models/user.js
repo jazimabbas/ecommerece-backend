@@ -1,6 +1,12 @@
 const { Model, DataTypes } = require("sequelize");
+const bcrypt = require("bcryptjs");
 
-class User extends Model {}
+class User extends Model {
+  async getHashedPassword() {
+    const salt = await bcrypt.genSalt();
+    return await bcrypt.hash(this.password, salt);
+  }
+}
 
 function getModel(sequelize) {
   User.init(
