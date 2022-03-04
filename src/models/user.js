@@ -19,7 +19,7 @@ class User extends Model {
   }
 }
 
-function getModel(sequelize) {
+function initModel(sequelize) {
   User.init(
     {
       id: {
@@ -65,11 +65,11 @@ function getModel(sequelize) {
         allowNull: true,
       },
     },
-    { sequelize, tableName: "users", timestamps: false }
+    { sequelize, tableName: "users", timestamps: false, underscored: true }
   );
 }
 
 module.exports = {
   User,
-  getModel,
+  initModel,
 };
