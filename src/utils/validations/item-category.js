@@ -5,4 +5,8 @@ const createCategorySchema = yup.object().shape({
   shop: yup.number().required(),
 });
 
-module.exports = { createCategorySchema };
+const updateCategorySchema = yup.object().shape({
+  name: yup.string().required(),
+});
+
+module.exports = { createCategorySchema, updateCategorySchema };
