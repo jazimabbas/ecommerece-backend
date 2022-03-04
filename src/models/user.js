@@ -40,6 +40,30 @@ function getModel(sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      about: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      address: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      country: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      dateOfBirth: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     { sequelize, tableName: "users", timestamps: false }
   );

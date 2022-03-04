@@ -6,6 +6,7 @@ const profileSchema = yup.object().shape({
   about: yup.string().notRequired(),
   address: yup.string().required(),
   country: yup.string().notRequired(),
+  dateOfBirth: yup.date().notRequired(),
 });
 
 module.exports = { profileSchema };
