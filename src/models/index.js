@@ -6,6 +6,7 @@ const itemCategory = require("./item-category");
 const item = require("./item");
 const purchase = require("./purchases");
 const itemImage = require("./item-image");
+const favorite = require("./favorite");
 
 const sequelize = new Sequelize({ ...config.get("db") });
 
@@ -16,6 +17,7 @@ itemCategory.initModel(sequelize);
 item.initModel(sequelize);
 purchase.initModel(sequelize);
 itemImage.initModel(sequelize);
+favorite.initModel(sequelize);
 
 const db = {};
 db.sequelize = sequelize;
@@ -25,5 +27,6 @@ db.ItemCategory = itemCategory.ItemCategory;
 db.Item = item.Item;
 db.Purchase = purchase.Purchase;
 db.ItemImage = itemImage.ItemImage;
+db.Favorite = favorite.Favorite;
 
 module.exports = db;
