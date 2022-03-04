@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require("sequelize");
 
-class Shop extends Model {}
+class ItemCategory extends Model {}
 
 function initModel(sequelize) {
-  Shop.init(
+  ItemCategory.init(
     {
       id: {
         type: DataTypes.INTEGER,
@@ -14,16 +14,21 @@ function initModel(sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      image: {
-        type: DataTypes.STRING,
+      shopId: {
+        type: DataTypes.INTEGER,
         allowNull: true,
       },
     },
-    { sequelize, tableName: "shops", timestamps: false, underscored: true }
+    {
+      sequelize,
+      tableName: "item_categories",
+      timestamps: false,
+      underscored: true,
+    }
   );
 }
 
 module.exports = {
-  Shop,
+  ItemCategory,
   initModel,
 };
