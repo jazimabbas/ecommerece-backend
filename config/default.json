@@ -13,7 +13,7 @@
       "freezeTableName": true
     },
 
-    "forceSync": true
+    "forceSync": false
   },
   "jwt": {
     "secret": "my-secret-key"
