@@ -1,5 +1,9 @@
+const validate = require("../utils/validations");
+const validations = require("../utils/validations/item");
+
 async function createItem(req, res) {
-  res.send("create new item");
+  const cleanFields = await validate(validations.createItemSchema, req.body);
+  res.send(cleanFields);
 }
 
 module.exports = { createItem };
