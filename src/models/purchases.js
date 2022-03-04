@@ -10,27 +10,35 @@ function initModel(sequelize) {
         autoIncrement: true,
         primaryKey: true,
       },
-      item_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      item_image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      item_quantity: {
+      userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      item_price: {
+      shopId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      order_id: {
+      itemName: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      purchased_date: {
+      itemImage: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      itemQuantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      itemPrice: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      orderId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      purchasedDate: {
         type: DataTypes.STRING,
         allowNull: false,
       },

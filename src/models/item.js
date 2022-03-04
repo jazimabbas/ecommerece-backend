@@ -14,7 +14,7 @@ function initModel(sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      category: {
+      categoryId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
@@ -30,7 +30,7 @@ function initModel(sequelize) {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      shop: {
+      shopId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
