@@ -4,6 +4,7 @@ const user = require("./user");
 const shop = require("./shop");
 const itemCategory = require("./item-category");
 const item = require("./item");
+const purchase = require("./purchases");
 
 const sequelize = new Sequelize({ ...config.get("db") });
 
@@ -12,6 +13,7 @@ user.initModel(sequelize);
 shop.initModel(sequelize);
 itemCategory.initModel(sequelize);
 item.initModel(sequelize);
+purchase.initModel(sequelize);
 
 const db = {};
 db.sequelize = sequelize;
@@ -19,5 +21,6 @@ db.User = user.User;
 db.Shop = shop.Shop;
 db.ItemCategory = itemCategory.ItemCategory;
 db.Item = item.Item;
+db.Purchase = purchase.Purchase;
 
 module.exports = db;
