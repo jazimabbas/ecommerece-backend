@@ -1,5 +1,9 @@
+const validate = require("../utils/validations");
+const validations = require("../utils/validations/user");
+
 async function updateProfile(req, res) {
-  res.send("update user profile");
+  const cleanFields = await validate(validations.profileSchema, req.body);
+  res.send(cleanFields);
 }
 
 module.exports = { updateProfile };
