@@ -10,11 +10,13 @@ async function checkShopAvailablity(req, res) {
 }
 
 async function createShop(req, res) {
-  const cleanFields = await validate(
-    validations.checkAvailablitySchema,
-    req.body
-  );
+  const cleanFields = await validate(validations.createShopSchema, req.body);
   res.send({ cleanFields });
 }
 
-module.exports = { checkShopAvailablity, createShop };
+async function updateShop(req, res) {
+  const cleanFields = await validate(validations.updateShopSchema, req.body);
+  res.send({ cleanFields });
+}
+
+module.exports = { checkShopAvailablity, createShop, updateShop };

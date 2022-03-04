@@ -8,4 +8,8 @@ const createShopSchema = yup.object().shape({
   name: yup.string().required(),
 });
 
-module.exports = { checkAvailablitySchema, createShopSchema };
+const updateShopSchema = yup.object().shape({
+  name: yup.string().notRequired(),
+});
+
+module.exports = { checkAvailablitySchema, createShopSchema, updateShopSchema };
