@@ -9,4 +9,12 @@ async function checkShopAvailablity(req, res) {
   res.send({ cleanFields });
 }
 
-module.exports = { checkShopAvailablity };
+async function createShop(req, res) {
+  const cleanFields = await validate(
+    validations.checkAvailablitySchema,
+    req.body
+  );
+  res.send({ cleanFields });
+}
+
+module.exports = { checkShopAvailablity, createShop };
