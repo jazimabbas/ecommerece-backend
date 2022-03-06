@@ -1,5 +1,6 @@
 const config = require("config");
 const express = require("express");
+const fs = require("fs");
 require("express-async-errors");
 const db = require("./models");
 const allRoutes = require("./routes");
@@ -14,6 +15,11 @@ async function bootstrap() {
   console.log("Please wait for the server and db to run");
 
   try {
+    if (!fs.existsSync("./uploads")) {
+      console.log("upload dir not exists");
+      fs.mkdirSync("./uploads")
+    }
+
     await db.sequelize.sync({ force: config.get("db.forceSync") });
     const PORT = process.env.PORT || 8000;
     app.listen(PORT, () => {
