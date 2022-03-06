@@ -13,15 +13,19 @@ async function checkShopAvailablity(req, res) {
 }
 
 async function createShop(req, res) {
-  const image = req.file ? req.file.filename : "";
   const cleanFields = await validate(validations.createShopSchema, req.body);
-  const newShop = await shopService.createNewShop({ ...cleanFields, image });
+  const newShop = await shopService.createNewShop({ cleanFields });
   res.send({ shop: newShop });
 }
 
 async function updateShop(req, res) {
+  const image = req.file ? req.file.filename : "";
   const cleanFields = await validate(validations.updateShopSchema, req.body);
-  res.send({ cleanFields });
+  const updatedShop = await shopService.updateShop(+req.params.id, {
+    ...cleanFields,
+    image,
+  });
+  res.send({ shop: updatedShop });
 }
 
 module.exports = { checkShopAvailablity, createShop, updateShop };

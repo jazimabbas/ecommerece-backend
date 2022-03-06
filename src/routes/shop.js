@@ -4,7 +4,7 @@ const uploads = require("../utils/upload");
 
 const router = express.Router();
 router.post("/check-availablity", shopController.checkShopAvailablity);
-router.post("/", uploads.single("image"), shopController.createShop);
-router.patch("/:id", shopController.updateShop);
+router.post("/", shopController.createShop);
+router.patch("/:id", uploads.single("image"), shopController.updateShop);
 
 module.exports = router;

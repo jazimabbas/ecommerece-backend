@@ -15,4 +15,17 @@ async function createNewShop(shopFields) {
   return newShop.save();
 }
 
-module.exports = { isShopAvailable, createNewShop };
+async function updateShop(shopId, shopFields) {
+  const shopInDb = await db.Shop.findByPk(shopId);
+  if (!shopInDb) {
+    throw new Exceptions.NotFoundException("Shop not found");
+  }
+
+  try {
+    return await db.Shop.update({ ...shopFields }, { where: { id: shopId } });
+  } catch (err) {
+    throw new Exceptions.BadRequestException("Shop already exists");
+  }
+}
+
+module.exports = { isShopAvailable, createNewShop, updateShop };
