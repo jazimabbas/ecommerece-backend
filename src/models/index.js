@@ -30,8 +30,7 @@ db.ItemImage = itemImage.ItemImage;
 db.Favorite = favorite.Favorite;
 
 // relations
-
-db.ItemCategory.hasMany(db.Item);
-db.Shop.hasMany(db.Item);
+db.ItemCategory.hasMany(db.Item, { foreignKey: "category_id" });
+db.Shop.hasMany(db.Item, { foreignKey: "shop_id" });
 
 module.exports = db;
