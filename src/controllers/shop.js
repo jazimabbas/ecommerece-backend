@@ -1,12 +1,15 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/shop");
+const shopService = require("../services/shop");
 
 async function checkShopAvailablity(req, res) {
   const cleanFields = await validate(
     validations.checkAvailablitySchema,
     req.body
   );
-  res.send({ cleanFields });
+  const shop = await shopService.isShopAvailable(cleanFields.name);
+  const isAvailable = shop ? false : true;
+  res.send({ isAvailable });
 }
 
 async function createShop(req, res) {
