@@ -5,4 +5,8 @@ async function addToFav(userId, itemId) {
   return db.Favorite.create({ userId, itemId });
 }
 
-module.exports = { addToFav };
+async function removeFromFav(userId, itemId) {
+  return db.Favorite.destroy({ where: { userId, itemId } });
+}
+
+module.exports = { addToFav, removeFromFav };

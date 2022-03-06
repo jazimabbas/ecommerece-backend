@@ -6,7 +6,8 @@ async function addToFavorite(req, res) {
 }
 
 async function removeFromFavorite(req, res) {
-  res.send("remove from fav");
+  await favService.removeFromFav(+req.user.id, +req.params.itemId);
+  res.send({ meessage: "Removed from favorite" });
 }
 
 module.exports = { addToFavorite, removeFromFavorite };
