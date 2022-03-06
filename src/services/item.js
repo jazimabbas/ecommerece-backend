@@ -1,5 +1,45 @@
+const { QueryTypes } = require("sequelize");
 const db = require("../models");
 const Exceptions = require("../utils/custom-exceptions");
+
+async function filteredItems(filterOptions) {
+  const { isOutOfStock, priceRange, sort, searchVal } = filterOptions;
+
+  let excludeStockQuery = "";
+  if (isOutOfStock) {
+    excludeStockQuery = " and quantity <> 0";
+  }
+
+  let sortQuery = "";
+  if (sort) {
+    let { sortOrder, sortKey } = sort;
+    sortOrder = sortOrder ?? "asc";
+    sortQuery = " order by " + sortKey + " " + sortOrder;
+  }
+
+  let priceRangeQuery = "";
+  if (priceRange) {
+    const { min, max } = priceRange;
+    priceRangeQuery = ` and  (price between ${min ?? 1} and ${max})`;
+  }
+
+  return await db.sequelize.query(
+    `
+    SELECT 
+      id,
+      name,
+      price,
+      quantity,
+      featured_image
+    FROM items
+    WHERE name like '%${searchVal}%'
+    ${priceRangeQuery}
+    ${excludeStockQuery}
+    ${sortQuery}
+  `,
+    { type: QueryTypes.SELECT }
+  );
+}
 
 async function createNewitem(itemFields) {
   const trans = await db.sequelize.transaction();
@@ -19,4 +59,4 @@ async function createNewitem(itemFields) {
   }
 }
 
-module.exports = { createNewitem };
+module.exports = { filteredItems, createNewitem };

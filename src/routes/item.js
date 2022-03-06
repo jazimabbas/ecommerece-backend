@@ -3,6 +3,7 @@ const itemController = require("../controllers/item");
 const uploads = require("../utils/upload");
 
 const router = express.Router();
+router.post("/filter", itemController.filteredItems);
 router.post(
   "/",
   uploads.fields([
