@@ -4,6 +4,7 @@ const uploads = require("../utils/upload");
 
 const router = express.Router();
 router.post("/filter", itemController.filteredItems);
+router.get("/:id", itemController.singleItem);
 router.post(
   "/",
   uploads.fields([

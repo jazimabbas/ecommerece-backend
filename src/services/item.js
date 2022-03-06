@@ -41,6 +41,12 @@ async function filteredItems(filterOptions) {
   );
 }
 
+async function singleItem(itemId) {
+  return db.Item.findByPk(itemId, {
+    include: [{ model: db.Shop }, { model: db.ItemImage }],
+  });
+}
+
 async function createNewitem(itemFields) {
   const trans = await db.sequelize.transaction();
 
@@ -59,4 +65,4 @@ async function createNewitem(itemFields) {
   }
 }
 
-module.exports = { filteredItems, createNewitem };
+module.exports = { filteredItems, singleItem, createNewitem };

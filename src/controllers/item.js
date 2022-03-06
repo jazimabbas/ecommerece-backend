@@ -7,6 +7,11 @@ async function filteredItems(req, res) {
   res.send({ items });
 }
 
+async function singleItem(req, res) {
+  const item = await itemService.singleItem(+req.params.id);
+  res.send({ item });
+}
+
 async function createItem(req, res) {
   const cleanFields = await validate(validations.createItemSchema, req.body);
   const featuredImage = req.files.featured[0].filename;
@@ -19,4 +24,4 @@ async function createItem(req, res) {
   res.send({ item });
 }
 
-module.exports = { filteredItems, createItem };
+module.exports = { filteredItems, singleItem, createItem };
