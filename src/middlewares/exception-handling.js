@@ -1,4 +1,5 @@
 const fs = require("fs/promises");
+const multer = require("multer");
 const Exceptions = require("../utils/custom-exceptions");
 
 module.exports = async function (err, req, res, next) {
@@ -9,6 +10,13 @@ module.exports = async function (err, req, res, next) {
 
   console.log(err);
   await removeFileIfExists(req.file);
+
+  if (err instanceof multer.MulterError) {
+    res
+      .status(400)
+      .send({ message: "Error while uploading images", errors: [] });
+    return;
+  }
 
   if (err instanceof Exceptions.HttpException) {
     if (err instanceof Exceptions.ValidationException) {
