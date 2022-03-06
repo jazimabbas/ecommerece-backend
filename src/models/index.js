@@ -29,4 +29,9 @@ db.Purchase = purchase.Purchase;
 db.ItemImage = itemImage.ItemImage;
 db.Favorite = favorite.Favorite;
 
+// relations
+
+db.ItemCategory.hasMany(db.Item);
+db.Shop.hasMany(db.Item);
+
 module.exports = db;
