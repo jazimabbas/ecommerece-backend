@@ -7,10 +7,11 @@ async function createItem(req, res) {
 
   const cleanFields = await validate(validations.createItemSchema, req.body);
 
-  return res.send(cleanFields);
+  // return res.send(cleanFields);
 
   // return res.send(cleanFields);
-  const item = await itemService.createNewitem(cleanFields);
+  const images = req.files.map((file) => file.filename);
+  const item = await itemService.createNewitem({ ...cleanFields, images });
   res.send({ item });
 }
 
