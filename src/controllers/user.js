@@ -1,10 +1,10 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/user");
+const userService = require("../services/user");
 
 async function updateProfile(req, res) {
-  console.log("file", req.file);
-
   const cleanFields = await validate(validations.profileSchema, req.body);
+  cleanFields["image"] = req.file ? req.file.filename : "";
 
   const userFields = {};
   for (let key in cleanFields) {
@@ -13,7 +13,8 @@ async function updateProfile(req, res) {
     }
   }
 
-  res.send({ userFields, user: req.user });
+  await userService.updateProfile(req.user.id, userFields);
+  res.send({ message: "Successfully update the profile" });
 }
 
 module.exports = { updateProfile };
