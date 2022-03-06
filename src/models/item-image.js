@@ -14,7 +14,7 @@ function initModel(sequelize) {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      item_id: {
+      itemId: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

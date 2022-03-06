@@ -32,5 +32,6 @@ db.Favorite = favorite.Favorite;
 // relations
 db.ItemCategory.hasMany(db.Item, { foreignKey: "category_id" });
 db.Shop.hasMany(db.Item, { foreignKey: "shop_id" });
+db.Item.hasMany(db.ItemImage, { foreignKey: "item_id" });
 
 module.exports = db;
