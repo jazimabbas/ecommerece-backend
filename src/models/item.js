@@ -39,6 +39,10 @@ function initModel(sequelize) {
         allowNull: true,
         defaultValue: 0,
       },
+      featuredImage: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     { sequelize, tableName: "items", timestamps: false, underscored: true }
   );

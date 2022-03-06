@@ -10,8 +10,13 @@ async function createItem(req, res) {
   // return res.send(cleanFields);
 
   // return res.send(cleanFields);
-  const images = req.files.map((file) => file.filename);
-  const item = await itemService.createNewitem({ ...cleanFields, images });
+  const featuredImage = req.files.featured[0].filename;
+  const images = req.files.image.map((file) => file.filename);
+  const item = await itemService.createNewitem({
+    ...cleanFields,
+    images,
+    featuredImage,
+  });
   res.send({ item });
 }
 

@@ -4,6 +4,8 @@ const Exceptions = require("../utils/custom-exceptions");
 async function createNewitem(itemFields) {
   const trans = await db.sequelize.transaction();
 
+  console.log("item fields: ", itemFields);
+
   try {
     let newItem = new db.Item({ ...itemFields });
     newItem = await newItem.save();
