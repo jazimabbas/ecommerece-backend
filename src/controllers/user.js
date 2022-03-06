@@ -13,7 +13,7 @@ async function updateProfile(req, res) {
     }
   }
 
-  res.send({ userFields });
+  res.send({ userFields, user: req.user });
 }
 
 module.exports = { updateProfile };
