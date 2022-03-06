@@ -13,8 +13,9 @@ async function checkShopAvailablity(req, res) {
 }
 
 async function createShop(req, res) {
+  const image = req.file ? req.file.filename : "";
   const cleanFields = await validate(validations.createShopSchema, req.body);
-  const newShop = await shopService.createNewShop(cleanFields);
+  const newShop = await shopService.createNewShop({ ...cleanFields, image });
   res.send({ shop: newShop });
 }
 
