@@ -5,7 +5,15 @@ async function updateProfile(req, res) {
   console.log("file", req.file);
 
   const cleanFields = await validate(validations.profileSchema, req.body);
-  res.send(cleanFields);
+
+  const userFields = {};
+  for (let key in cleanFields) {
+    if (cleanFields[key]) {
+      userFields[key] = cleanFields[key];
+    }
+  }
+
+  res.send({ userFields });
 }
 
 module.exports = { updateProfile };
