@@ -1,5 +1,8 @@
+const favService = require("../services/favorite");
+
 async function addToFavorite(req, res) {
-  res.send("add to fav");
+  await favService.addToFav(+req.user.id, +req.params.itemId);
+  res.send({ message: "Add to favorite" });
 }
 
 async function removeFromFavorite(req, res) {
