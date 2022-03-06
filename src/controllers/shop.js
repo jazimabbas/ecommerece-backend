@@ -14,7 +14,8 @@ async function checkShopAvailablity(req, res) {
 
 async function createShop(req, res) {
   const cleanFields = await validate(validations.createShopSchema, req.body);
-  res.send({ cleanFields });
+  const newShop = await shopService.createNewShop(cleanFields);
+  res.send({ shop: newShop });
 }
 
 async function updateShop(req, res) {
