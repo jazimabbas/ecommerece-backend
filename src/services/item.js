@@ -2,6 +2,10 @@ const { QueryTypes } = require("sequelize");
 const db = require("../models");
 const Exceptions = require("../utils/custom-exceptions");
 
+async function listAllItems() {
+  return db.Item.findAll();
+}
+
 async function filteredItems(filterOptions) {
   const { isOutOfStock, priceRange, sort, searchVal } = filterOptions;
 
@@ -65,4 +69,4 @@ async function createNewitem(itemFields) {
   }
 }
 
-module.exports = { filteredItems, singleItem, createNewitem };
+module.exports = { listAllItems, filteredItems, singleItem, createNewitem };
