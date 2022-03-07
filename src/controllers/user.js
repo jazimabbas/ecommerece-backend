@@ -13,8 +13,8 @@ async function updateProfile(req, res) {
     }
   }
 
-  await userService.updateProfile(req.user.id, userFields);
-  res.send({ message: "Successfully update the profile" });
+  const user = await userService.updateProfile(req.user.id, userFields);
+  res.send({ message: "Successfully update the profile", user });
 }
 
 module.exports = { updateProfile };

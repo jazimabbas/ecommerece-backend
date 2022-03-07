@@ -8,6 +8,7 @@ async function updateProfile(userId, userFields) {
   }
 
   await db.User.update({ ...userFields }, { where: { id: userId } });
+  return await db.User.findByPk(userId);
 }
 
 module.exports = { updateProfile };
