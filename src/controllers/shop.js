@@ -12,9 +12,16 @@ async function checkShopAvailablity(req, res) {
   res.send({ isAvailable });
 }
 
+async function shopExistsForUser(req, res) {
+  const shop = await shopService.isShopAvailable(+req.user.id);
+  const isShopExists = shop ? true : false;
+  res.send({ isShopExists });
+}
+
 async function createShop(req, res) {
+  console.log("shop fields: ", req.body);
   const cleanFields = await validate(validations.createShopSchema, req.body);
-  const newShop = await shopService.createNewShop({ cleanFields });
+  const newShop = await shopService.createNewShop({ ...cleanFields });
   res.send({ shop: newShop });
 }
 
@@ -28,4 +35,9 @@ async function updateShop(req, res) {
   res.send({ shop: updatedShop });
 }
 
-module.exports = { checkShopAvailablity, createShop, updateShop };
+module.exports = {
+  checkShopAvailablity,
+  shopExistsForUser,
+  createShop,
+  updateShop,
+};

@@ -19,6 +19,10 @@ function initModel(sequelize) {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
     },
     { sequelize, tableName: "shops", timestamps: false, underscored: true }
   );
