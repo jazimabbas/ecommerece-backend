@@ -2,7 +2,15 @@ const favService = require("../services/favorite");
 
 async function getAllFavs(req, res) {
   const favorites = await favService.getAllFavs(+req.user.id);
-  res.send({ favorites });
+  const favItems = favorites.map((fav) => {
+    return {
+      id: fav.Item.id,
+      name: fav.Item.name,
+      price: fav.Item.price,
+      featuredImage: fav.Item.featuredImage,
+    };
+  });
+  res.send({ favorites: favItems });
 }
 
 async function addToFavorite(req, res) {
