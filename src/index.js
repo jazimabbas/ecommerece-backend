@@ -9,6 +9,7 @@ const catchUnhandleExceptions = require("./middlewares/exception-handling");
 
 const app = express();
 app.use(cors({ origin: "*" }));
+app.use(express.static("uploads"));
 app.use(express.json());
 app.use("/", allRoutes);
 app.use(catchUnhandleExceptions);
