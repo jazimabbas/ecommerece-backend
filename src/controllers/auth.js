@@ -4,7 +4,8 @@ const authService = require("../services/auth");
 
 async function register(req, res) {
   const cleanFields = await validate(validations.registerSchema, req.body);
-  await authService.saveUser(cleanFields);
+  const user = await authService.saveUser(cleanFields);
+  console.log("user: ", user);
   res.send({ message: "Successfully user is registered" });
 }
 

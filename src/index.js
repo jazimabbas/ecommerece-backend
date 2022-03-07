@@ -1,3 +1,4 @@
+const cors = require("cors");
 const config = require("config");
 const express = require("express");
 const fs = require("fs");
@@ -7,6 +8,7 @@ const allRoutes = require("./routes");
 const catchUnhandleExceptions = require("./middlewares/exception-handling");
 
 const app = express();
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use("/", allRoutes);
 app.use(catchUnhandleExceptions);
@@ -17,7 +19,7 @@ async function bootstrap() {
   try {
     if (!fs.existsSync("./uploads")) {
       console.log("upload dir not exists");
-      fs.mkdirSync("./uploads")
+      fs.mkdirSync("./uploads");
     }
 
     await db.sequelize.sync({ force: config.get("db.forceSync") });
