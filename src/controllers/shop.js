@@ -13,7 +13,7 @@ async function checkShopAvailablity(req, res) {
 }
 
 async function shopExistsForUser(req, res) {
-  const shop = await shopService.isShopAvailable(+req.user.id);
+  const shop = await shopService.isShopExistsForUser(+req.user.id);
   const isShopExists = shop ? true : false;
   res.send({ isShopExists });
 }
