@@ -21,7 +21,10 @@ async function shopExistsForUser(req, res) {
 async function createShop(req, res) {
   console.log("shop fields: ", req.body);
   const cleanFields = await validate(validations.createShopSchema, req.body);
-  const newShop = await shopService.createNewShop({ ...cleanFields });
+  const newShop = await shopService.createNewShop({
+    ...cleanFields,
+    userId: +req.user.id,
+  });
   res.send({ shop: newShop });
 }
 
