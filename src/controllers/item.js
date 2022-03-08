@@ -1,6 +1,7 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/item");
 const itemService = require("../services/item");
+const Exceptions = require("../utils/custom-exceptions");
 
 async function listAllItems(req, res) {
   const items = await itemService.listAllItems();
@@ -19,6 +20,19 @@ async function singleItem(req, res) {
 
 async function createItem(req, res) {
   const cleanFields = await validate(validations.createItemSchema, req.body);
+
+  if (!req.files.featured) {
+    throwValidationErrors(
+      "Please upload featured image. This is required field"
+    );
+  }
+  if (!req.files.image) {
+    throwValidationErrors("Please upload item images. This is required field");
+  }
+  if (req.files.image.length < 3) {
+    throwValidationErrors("Please upload min 3 item images");
+  }
+
   const featuredImage = req.files.featured[0].filename;
   const images = req.files?.image?.map((file) => file.filename);
   const item = await itemService.createNewitem({
@@ -30,3 +44,9 @@ async function createItem(req, res) {
 }
 
 module.exports = { listAllItems, filteredItems, singleItem, createItem };
+
+function throwValidationErrors(err) {
+  throw new Exceptions.ValidationException("Please enter valid information", [
+    err,
+  ]);
+}

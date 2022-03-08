@@ -64,7 +64,7 @@ async function createNewitem(itemFields) {
     await db.ItemImage.bulkCreate(itemImages, { returning: true });
 
     await trans.commit();
-    return newItem;
+    return db.Item.findByPk(newItem.id, { include: db.ItemCategory });
   } catch (err) {
     await trans.rollback();
   }
