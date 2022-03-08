@@ -14,7 +14,8 @@ async function createItemCategory(req, res) {
     validations.createCategorySchema,
     req.body
   );
-  res.send(cleanFields);
+  const newCategory = await categoryService.createNewCategory(cleanFields);
+  res.send({ category: newCategory });
 }
 
 async function updateItemCategory(req, res) {

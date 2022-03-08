@@ -41,5 +41,7 @@ db.User.hasMany(db.Favorite, { foreignKey: "user_id" });
 db.Favorite.belongsTo(db.Item);
 // for-shops
 db.User.hasOne(db.Shop, { foreignKey: "user_id" });
+// shop-itemCategory
+db.Shop.hasMany(db.ItemCategory, { foreignKey: "shop_id" });
 
 module.exports = db;
