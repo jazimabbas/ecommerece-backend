@@ -14,7 +14,7 @@ async function getShopDetails(userId) {
 }
 
 async function getShopItems(shopId) {
-  return db.Item.findAll({ where: { shopId } });
+  return db.Item.findAll({ where: { shopId }, include: db.ItemCategory });
 }
 
 async function createNewShop(shopFields) {

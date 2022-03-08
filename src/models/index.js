@@ -34,6 +34,7 @@ db.ItemCategory.hasMany(db.Item, { foreignKey: "category_id" });
 db.Shop.hasMany(db.Item, { foreignKey: "shop_id" });
 db.Item.hasMany(db.ItemImage, { foreignKey: "item_id" });
 db.Item.belongsTo(db.Shop);
+db.Item.belongsTo(db.ItemCategory, { foreignKey: "category_id" });
 // for-favs
 db.Item.hasMany(db.Favorite, { foreignKey: "item_id" });
 db.User.hasMany(db.Favorite, { foreignKey: "user_id" });
