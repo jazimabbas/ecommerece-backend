@@ -64,6 +64,7 @@ async function createNewitem(itemFields) {
     await db.ItemImage.bulkCreate(itemImages, { returning: true });
 
     await trans.commit();
+    return newItem;
   } catch (err) {
     await trans.rollback();
   }
