@@ -23,7 +23,8 @@ async function updateItemCategory(req, res) {
     validations.updateCategorySchema,
     req.body
   );
-  res.send(cleanFields);
+  await categoryService.updateCategory(+req.params.id, cleanFields);
+  res.send({ message: "Successfully update the item category" });
 }
 
 module.exports = { getAllCategories, createItemCategory, updateItemCategory };

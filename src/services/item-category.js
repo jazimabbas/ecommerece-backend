@@ -20,4 +20,23 @@ async function createNewCategory(categoryFields) {
   return await newCategory.save();
 }
 
-module.exports = { getAllCategoriesForShop, createNewCategory };
+async function updateCategory(categoryId, categoryFields) {
+  let categoryInDb = await db.ItemCategory.findByPk(categoryId);
+  if (!categoryInDb) {
+    throw new Exceptions.NotFoundException("Item category not found");
+  }
+
+  const { name, shopId } = categoryFields;
+  categoryInDb = await db.ItemCategory.findOne({
+    where: { name, shopId, id: !categoryId },
+  });
+  if (categoryInDb) {
+    throw new Exceptions.BadRequestException(
+      "Category already exists. Please try different"
+    );
+  }
+
+  await db.ItemCategory.update(categoryFields, { where: { id: categoryId } });
+}
+
+module.exports = { getAllCategoriesForShop, createNewCategory, updateCategory };
