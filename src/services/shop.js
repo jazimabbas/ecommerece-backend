@@ -9,6 +9,14 @@ async function isShopExistsForUser(userId) {
   return await db.Shop.findOne({ where: { userId } });
 }
 
+async function getShopDetails(userId) {
+  return await db.Shop.findOne({ where: { userId } });
+}
+
+async function getShopItems(shopId) {
+  return db.Item.findAll({ where: { shopId } });
+}
+
 async function createNewShop(shopFields) {
   const shopInDb = await db.Shop.findOne({ where: { name: shopFields.name } });
   if (shopInDb) {
@@ -35,6 +43,8 @@ async function updateShop(shopId, shopFields) {
 module.exports = {
   isShopAvailable,
   isShopExistsForUser,
+  getShopDetails,
+  getShopItems,
   createNewShop,
   updateShop,
 };

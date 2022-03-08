@@ -18,6 +18,16 @@ async function shopExistsForUser(req, res) {
   res.send({ isShopExists });
 }
 
+async function getShopDetails(req, res) {
+  const shop = await shopService.getShopDetails(+req.user.id);
+  res.send({ shop });
+}
+
+async function getShopItems(req, res) {
+  const items = await shopService.getShopItems(+req.params.shopId);
+  res.send({ items });
+}
+
 async function createShop(req, res) {
   console.log("shop fields: ", req.body);
   const cleanFields = await validate(validations.createShopSchema, req.body);
@@ -41,6 +51,8 @@ async function updateShop(req, res) {
 module.exports = {
   checkShopAvailablity,
   shopExistsForUser,
+  getShopDetails,
+  getShopItems,
   createShop,
   updateShop,
 };
