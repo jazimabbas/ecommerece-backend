@@ -37,7 +37,6 @@ async function checkout(userId, items) {
   }
 
   const orderId = uuidv4();
-
   const purchases = items.map((item) => {
     const itemInDb = itemsInDbObj[item.itemId];
 
@@ -52,8 +51,9 @@ async function checkout(userId, items) {
       orderId,
     };
   });
+  await db.Purchase.bulkCreate(purchases);
 
-  return { itemsInDb, orderId, purchases };
+  //   return { itemsInDb, orderId, purchases };
 }
 
 module.exports = { checkout };
