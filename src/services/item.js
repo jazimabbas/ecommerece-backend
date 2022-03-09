@@ -7,6 +7,7 @@ async function listAllItems() {
 }
 
 async function filteredItems(filterOptions) {
+  console.log("filter ops: ", filterOptions);
   const { isOutOfStock, priceRange, sort, searchVal } = filterOptions;
 
   let excludeStockQuery = "";
@@ -18,13 +19,21 @@ async function filteredItems(filterOptions) {
   if (sort) {
     let { sortOrder, sortKey } = sort;
     sortOrder = sortOrder ?? "asc";
-    sortQuery = " order by " + sortKey + " " + sortOrder;
+    if (sortOrder) {
+      sortQuery = " order by " + sortKey + " " + sortOrder;
+    }
   }
 
   let priceRangeQuery = "";
   if (priceRange) {
     const { min, max } = priceRange;
-    priceRangeQuery = ` and  (price between ${min ?? 1} and ${max})`;
+    if (!max || max > 0) {
+      priceRangeQuery = `and (price >= ${min === 0 ? 1 : min})`;
+    } else {
+      priceRangeQuery = ` and  (price between ${
+        min === 0 ? 1 : min
+      } and ${max})`;
+    }
   }
 
   return await db.sequelize.query(
