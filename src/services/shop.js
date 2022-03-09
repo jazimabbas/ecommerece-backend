@@ -10,7 +10,7 @@ async function isShopExistsForUser(userId) {
 }
 
 async function singleShopDetail(shopId) {
-  return await db.Shop.findByPk(shopId);
+  return await db.Shop.findByPk(shopId, { include: db.Item });
 }
 
 async function getShopDetails(userId) {
