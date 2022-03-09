@@ -36,22 +36,42 @@ async function checkout(userId, items) {
     throw new Exceptions.ValidationException("Items Quantity Differs", errors);
   }
 
-  const orderId = uuidv4();
-  const purchases = items.map((item) => {
-    const itemInDb = itemsInDbObj[item.itemId];
+  let trans;
+  try {
+    trans = await db.sequelize.transaction();
 
-    return {
-      userId: userId,
-      shopId: itemInDb.shopId,
-      itemName: itemInDb.name,
-      itemImage: itemInDb.featuredImage,
-      itemQuantity: item.quantity,
-      itemPrice: itemInDb.price,
-      purchasedDate: new Date(),
-      orderId,
-    };
-  });
-  await db.Purchase.bulkCreate(purchases);
+    const orderId = uuidv4();
+    const purchases = items.map((item) => {
+      const itemInDb = itemsInDbObj[item.itemId];
+
+      return {
+        userId: userId,
+        shopId: itemInDb.shopId,
+        itemName: itemInDb.name,
+        itemImage: itemInDb.featuredImage,
+        itemQuantity: item.quantity,
+        itemPrice: itemInDb.price,
+        purchasedDate: new Date(),
+        orderId,
+      };
+    });
+    await db.Purchase.bulkCreate(purchases);
+
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      const itemInDb = itemsInDbObj[item.itemId];
+
+      await db.Item.update(
+        { quantity: itemInDb.quantity - item.quantity },
+        { where: { id: item.itemId } }
+      );
+    }
+
+    await trans.commit();
+  } catch (_) {
+    await trans.rollback();
+    throw new Exceptions.BadRequestException("Error while doing a checkout");
+  }
 
   //   return { itemsInDb, orderId, purchases };
 }
