@@ -8,10 +8,7 @@ router.post("/filter", itemController.filteredItems);
 router.get("/:id", itemController.singleItem);
 router.post(
   "/",
-  uploads.fields([
-    { name: "featured", maxCount: 1 },
-    { name: "image", maxCount: 3 },
-  ]),
+  uploads.fields([{ name: "featured", maxCount: 1 }]),
   itemController.createItem
 );
 

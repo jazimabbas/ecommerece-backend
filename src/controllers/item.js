@@ -26,19 +26,19 @@ async function createItem(req, res) {
       "Please upload featured image. This is required field"
     );
   }
-  if (!req.files.image) {
-    throwValidationErrors("Please upload item images. This is required field");
-  }
-  if (req.files.image.length < 3) {
-    throwValidationErrors("Please upload min 3 item images");
-  }
+  // if (!req.files.image) {
+  //   throwValidationErrors("Please upload item images. This is required field");
+  // }
+  // if (req.files.image.length < 3) {
+  //   throwValidationErrors("Please upload min 3 item images");
+  // }
 
+  // const images = req.files?.image?.map((file) => file.filename);
   const featuredImage = req.files.featured[0].filename;
-  const images = req.files?.image?.map((file) => file.filename);
   const item = await itemService.createNewitem({
     ...cleanFields,
-    images,
     featuredImage,
+    // images,
   });
   res.send({ item });
 }

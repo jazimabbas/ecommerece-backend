@@ -61,24 +61,21 @@ async function singleItem(itemId) {
 }
 
 async function createNewitem(itemFields) {
-  const trans = await db.sequelize.transaction();
-
   try {
     let newItem = new db.Item({ ...itemFields });
     newItem = await newItem.save();
 
-    const itemImages = itemFields.images.map((image) => {
-      return { image, itemId: newItem.id };
-    });
-    await db.ItemImage.bulkCreate(itemImages, { returning: true });
+    // const itemImages = itemFields.images.map((image) => {
+    //   return { image, itemId: newItem.id };
+    // });
+    // await db.ItemImage.bulkCreate(itemImages, { returning: true });
 
     const item = await db.Item.findByPk(newItem.id, {
       include: db.ItemCategory,
     });
-    await trans.commit();
     return item;
   } catch (err) {
-    await trans.rollback();
+    console.log("error: ", err);
   }
 }
 
