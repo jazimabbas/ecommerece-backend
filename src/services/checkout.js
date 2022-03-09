@@ -22,6 +22,19 @@ async function checkout(items) {
     throw new Exceptions.ValidationException("Items not found", errors);
   }
 
+  items.forEach((item) => {
+    if (item.quantity > itemsInDbObj[item.itemId].quantity) {
+      errors.push(
+        `Quantity for item_name: '${itemsInDbObj[item.itemId].name}' is ${
+          itemsInDbObj[item.itemId].quantity
+        }. But your provided quantity is: ${item.quantity}`
+      );
+    }
+  });
+  if (errors.length > 0) {
+    throw new Exceptions.ValidationException("Items Quantity Differs", errors);
+  }
+
   return itemsInDb;
 }
 
