@@ -1,8 +1,9 @@
 const { Op } = require("sequelize");
+const { v4: uuidv4 } = require("uuid");
 const db = require("../models");
 const Exceptions = require("../utils/custom-exceptions");
 
-async function checkout(items) {
+async function checkout(userId, items) {
   const itemsInDb = await db.Item.findAll({
     where: { id: { [Op.in]: items.map((item) => item.itemId) } },
   });
@@ -35,7 +36,24 @@ async function checkout(items) {
     throw new Exceptions.ValidationException("Items Quantity Differs", errors);
   }
 
-  return itemsInDb;
+  const orderId = uuidv4();
+
+  const purchases = items.map((item) => {
+    const itemInDb = itemsInDbObj[item.itemId];
+
+    return {
+      userId: userId,
+      shopId: itemInDb.shopId,
+      itemName: itemInDb.name,
+      itemImage: itemInDb.featuredImage,
+      itemQuantity: item.quantity,
+      itemPrice: itemInDb.price,
+      purchasedDate: new Date(),
+      orderId,
+    };
+  });
+
+  return { itemsInDb, orderId, purchases };
 }
 
 module.exports = { checkout };
