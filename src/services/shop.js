@@ -9,6 +9,10 @@ async function isShopExistsForUser(userId) {
   return await db.Shop.findOne({ where: { userId } });
 }
 
+async function singleShopDetail(shopId) {
+  return await db.Shop.findByPk(shopId);
+}
+
 async function getShopDetails(userId) {
   return await db.Shop.findOne({ where: { userId } });
 }
@@ -47,4 +51,5 @@ module.exports = {
   getShopItems,
   createNewShop,
   updateShop,
+  singleShopDetail,
 };

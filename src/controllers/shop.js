@@ -23,6 +23,11 @@ async function getShopDetails(req, res) {
   res.send({ shop });
 }
 
+async function getSingleShopDetail(req, res) {
+  const shop = await shopService.singleShopDetail(+req.params.id);
+  res.send({ shop });
+}
+
 async function getShopItems(req, res) {
   const items = await shopService.getShopItems(+req.params.shopId);
   res.send({ items });
@@ -55,4 +60,5 @@ module.exports = {
   getShopItems,
   createShop,
   updateShop,
+  getSingleShopDetail,
 };

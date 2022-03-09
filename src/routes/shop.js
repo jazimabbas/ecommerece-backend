@@ -5,6 +5,7 @@ const isAuth = require("../middlewares/is-auth");
 
 const router = express.Router();
 router.get("/is-shop-exists", isAuth, shopController.shopExistsForUser);
+router.get("/single-shop/:id", shopController.getSingleShopDetail);
 router.get("/:shopId", shopController.getShopItems);
 router.get("/", isAuth, shopController.getShopDetails);
 router.post("/check-availablity", shopController.checkShopAvailablity);
