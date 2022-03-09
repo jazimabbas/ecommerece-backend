@@ -55,25 +55,27 @@ async function checkout(userId, items) {
         orderId,
       };
     });
-    await db.Purchase.bulkCreate(purchases);
+    await db.Purchase.bulkCreate(purchases, { transaction: trans });
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       const itemInDb = itemsInDbObj[item.itemId];
 
       await db.Item.update(
-        { quantity: itemInDb.quantity - item.quantity },
-        { where: { id: item.itemId } }
+        {
+          quantity: itemInDb.quantity - item.quantity,
+          salesCount: itemInDb.salesCount + item.quantity,
+        },
+        { where: { id: item.itemId }, transaction: trans }
       );
     }
 
     await trans.commit();
-  } catch (_) {
+  } catch (err) {
     await trans.rollback();
+    console.log("error: ", err);
     throw new Exceptions.BadRequestException("Error while doing a checkout");
   }
-
-  //   return { itemsInDb, orderId, purchases };
 }
 
 module.exports = { checkout };

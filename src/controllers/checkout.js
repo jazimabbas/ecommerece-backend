@@ -5,7 +5,6 @@ const checkoutService = require("../services/checkout");
 async function checkout(req, res) {
   const cleanFields = await validate(validations.checkoutSchema, req.body);
   await checkoutService.checkout(+req.user.id, cleanFields.items);
-  // res.send(cleanFields);
   res.send({ message: "Successfully added to orders" });
 }
 
