@@ -9,4 +9,8 @@ const createItemSchema = yup.object().shape({
   shopId: yup.number().required(),
 });
 
-module.exports = { createItemSchema };
+const updateItemSchema = yup.object().shape({
+  price: yup.number().min(1).required(),
+});
+
+module.exports = { createItemSchema, updateItemSchema };

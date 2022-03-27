@@ -79,4 +79,14 @@ async function createNewitem(itemFields) {
   }
 }
 
-module.exports = { listAllItems, filteredItems, singleItem, createNewitem };
+async function updateItem(id, itemFields) {
+  await db.Item.update(itemFields, { where: { id } });
+}
+
+module.exports = {
+  listAllItems,
+  filteredItems,
+  singleItem,
+  createNewitem,
+  updateItem,
+};

@@ -43,7 +43,19 @@ async function createItem(req, res) {
   res.send({ item });
 }
 
-module.exports = { listAllItems, filteredItems, singleItem, createItem };
+async function updateItem(req, res) {
+  const cleanFields = await validate(validations.updateItemSchema, req.body);
+  await itemService.updateItem(+req.params.id, cleanFields);
+  res.send({ message: "Successfully updated item" });
+}
+
+module.exports = {
+  listAllItems,
+  filteredItems,
+  singleItem,
+  createItem,
+  updateItem,
+};
 
 function throwValidationErrors(err) {
   throw new Exceptions.ValidationException("Please enter valid information", [
