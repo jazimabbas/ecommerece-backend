@@ -1,6 +1,6 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/auth");
-const authService = require("../services/auth");
+const authService = require("../services/mogno/auth");
 
 async function register(req, res) {
   const cleanFields = await validate(validations.registerSchema, req.body);
