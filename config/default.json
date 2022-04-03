@@ -2,7 +2,7 @@
   "aws": {
     "accessKey": "",
     "secretKey": "",
-    "bucketName": "ecommerece-app"
+    "bucketName": "sample-ecommerece-app"
   },
   "db": {
     "username": "root",
