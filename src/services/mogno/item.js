@@ -44,9 +44,14 @@ async function filteredItems(filterOptions) {
       priceQuery = { price: { $gte: min ?? 1, $lte: max } };
     }
   }
+  let stockQuery = {};
+  if (isOutOfStock) {
+    stockQuery = { quantity: { $ne: 0 } };
+  }
 
   console.log("pricequery: ", priceQuery);
-  return db.Item.find({ ...nameQuery, ...priceQuery }).select(
+  console.log("stockQuery: ", stockQuery);
+  return db.Item.find({ ...nameQuery, ...priceQuery, ...stockQuery }).select(
     "name price quantity featuredImage"
   );
 
