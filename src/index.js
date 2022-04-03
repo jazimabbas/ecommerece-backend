@@ -3,6 +3,7 @@ const config = require("config");
 const express = require("express");
 const fs = require("fs");
 require("express-async-errors");
+const dbConnect = require("./db/connect");
 const db = require("./models");
 const allRoutes = require("./routes");
 const catchUnhandleExceptions = require("./middlewares/exception-handling");
@@ -23,7 +24,8 @@ async function bootstrap() {
       fs.mkdirSync("./uploads");
     }
 
-    await db.sequelize.sync({ force: config.get("db.forceSync") });
+    await dbConnect();
+
     const PORT = process.env.PORT || 8000;
     app.listen(PORT, () => {
       console.log(`App is listening on the port ${PORT}...`);

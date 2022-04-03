@@ -1,15 +1,13 @@
-version: '3'
+version: "3.3"
 
 services:
-  db:
-    image: mysql
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-      - MYSQL_USER=root
+  mongodb:
+    container_name: "mongodb"
+    image: "mongo"
     volumes:
-      - "ecommerece_app:/var/lib/mysql"
+      - data:/data/db
     ports:
-      - "3306:3306"
+      - "27017:27017"
 
 volumes:
-  ecommerece_app:
+  data:

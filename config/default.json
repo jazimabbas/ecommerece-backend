@@ -17,5 +17,8 @@
   },
   "jwt": {
     "secret": "my-secret-key"
+  },
+  "mongoDB": {
+    "connString": "mongodb://localhost:27017/ecommerece-app"
   }
 }
