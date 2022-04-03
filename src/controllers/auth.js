@@ -13,9 +13,8 @@ async function login(req, res) {
   const cleanFields = await validate(validations.loginSchema, req.body);
   const user = await authService.login(cleanFields);
 
-  const { dataValues } = user;
-  const { password, ...userFields } = dataValues;
-  const token = user.getJwtToken();
+  const userFields = user.excludePasswordField();
+  const token = user.generateToken();
   res.send({ user: { ...userFields, token } });
 }
 
