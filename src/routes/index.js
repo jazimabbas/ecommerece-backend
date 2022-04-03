@@ -7,6 +7,7 @@ const favoriteRoutes = require("./favorite");
 const checkoutRoutes = require("./checkout");
 const purchaseRoutes = require("./purchase");
 const itemCategoryRoutes = require("./item-category");
+const sampleRoute = require("./sample");
 
 const router = express.Router();
 router.get("/", (req, res) => res.send("Ecommerece Backend App"));
@@ -18,5 +19,6 @@ router.use("/fav", favoriteRoutes);
 router.use("/checkout", checkoutRoutes);
 router.use("/purchase", purchaseRoutes);
 router.use("/item-category", itemCategoryRoutes);
+router.get("/sample", sampleRoute);
 
 module.exports = router;

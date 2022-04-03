@@ -1,4 +1,9 @@
 {
+  "aws": {
+    "accessKey": "",
+    "secretKey": "",
+    "bucketName": "ecommerece-app"
+  },
   "db": {
     "username": "root",
     "password": "",

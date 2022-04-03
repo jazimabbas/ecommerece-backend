@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Jazim-Abbas/ecommerece-backend#readme",
   "dependencies": {
+    "aws-sdk": "^2.1106.0",
     "bcryptjs": "^2.4.3",
     "config": "^3.3.7",
     "cors": "^2.8.5",
