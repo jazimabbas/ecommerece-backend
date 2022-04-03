@@ -8,8 +8,6 @@ async function checkout(userId, items) {
     id: { $in: items.map((item) => item.itemId) },
   });
 
-  //   return itemsInDb;
-
   const itemsInDbObj = {};
   itemsInDb.forEach((item) => {
     itemsInDbObj[item._id] = item;
@@ -56,7 +54,7 @@ async function checkout(userId, items) {
     });
 
     for (let i = 0; i < purchases.length; i++) {
-        await db.Purchase.create(purchases[i]);
+      await db.Purchase.create(purchases[i]);
     }
 
     for (let i = 0; i < items.length; i++) {
