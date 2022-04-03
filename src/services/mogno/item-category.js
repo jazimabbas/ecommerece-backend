@@ -20,14 +20,16 @@ async function createNewCategory(categoryFields) {
 }
 
 async function updateCategory(categoryId, categoryFields) {
-  let categoryInDb = await db.ItemCategory.findByPk(categoryId);
+  let categoryInDb = await db.ItemCategory.findById(categoryId);
   if (!categoryInDb) {
     throw new Exceptions.NotFoundException("Item category not found");
   }
 
   const { name, shopId } = categoryFields;
   categoryInDb = await db.ItemCategory.findOne({
-    where: { name, shopId, id: !categoryId },
+    name,
+    shopId,
+    _id: { $ne: categoryId },
   });
   if (categoryInDb) {
     throw new Exceptions.BadRequestException(
@@ -35,7 +37,10 @@ async function updateCategory(categoryId, categoryFields) {
     );
   }
 
-  await db.ItemCategory.update(categoryFields, { where: { id: categoryId } });
+  await db.ItemCategory.findOneAndUpdate(
+    { _id: categoryId },
+    { ...categoryFields }
+  );
 }
 
 module.exports = { getAllCategoriesForShop, createNewCategory, updateCategory };
