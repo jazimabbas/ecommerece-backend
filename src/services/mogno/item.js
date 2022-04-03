@@ -34,6 +34,9 @@ async function filteredItems(filterOptions) {
     }
   }
 
+  const nameQuery = { name: { $regex: ".*" + searchVal + ".*" } };
+  return db.Item.find({ ...nameQuery }).select("name price quantity featuredImage");
+
   return await db.sequelize.query(
     `
     SELECT 
