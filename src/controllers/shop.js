@@ -1,6 +1,6 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/shop");
-const shopService = require("../services/shop");
+const shopService = require("../services/mogno/shop");
 
 async function checkShopAvailablity(req, res) {
   const cleanFields = await validate(
@@ -13,23 +13,23 @@ async function checkShopAvailablity(req, res) {
 }
 
 async function shopExistsForUser(req, res) {
-  const shop = await shopService.isShopExistsForUser(+req.user.id);
+  const shop = await shopService.isShopExistsForUser(req.user.id);
   const isShopExists = shop ? true : false;
   res.send({ isShopExists });
 }
 
 async function getShopDetails(req, res) {
-  const shop = await shopService.getShopDetails(+req.user.id);
+  const shop = await shopService.getShopDetails(req.user.id);
   res.send({ shop });
 }
 
 async function getSingleShopDetail(req, res) {
-  const shop = await shopService.singleShopDetail(+req.params.id);
+  const shop = await shopService.singleShopDetail(req.params.id);
   res.send({ shop });
 }
 
 async function getShopItems(req, res) {
-  const items = await shopService.getShopItems(+req.params.shopId);
+  const items = await shopService.getShopItems(req.params.shopId);
   res.send({ items });
 }
 
@@ -38,7 +38,7 @@ async function createShop(req, res) {
   const cleanFields = await validate(validations.createShopSchema, req.body);
   const newShop = await shopService.createNewShop({
     ...cleanFields,
-    userId: +req.user.id,
+    userId: req.user.id,
   });
   res.send({ shop: newShop });
 }
@@ -46,7 +46,7 @@ async function createShop(req, res) {
 async function updateShop(req, res) {
   const image = req.file ? req.file.filename : "";
   const cleanFields = await validate(validations.updateShopSchema, req.body);
-  const updatedShop = await shopService.updateShop(+req.params.id, {
+  const updatedShop = await shopService.updateShop(req.params.id, {
     ...cleanFields,
     image,
   });

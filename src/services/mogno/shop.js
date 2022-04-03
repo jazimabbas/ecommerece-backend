@@ -2,7 +2,7 @@ const db = require("../../db");
 const Exceptions = require("../../utils/custom-exceptions");
 
 async function isShopAvailable(shopname) {
-  return await db.Shop.findOneAndDelete({ name: shopname });
+  return await db.Shop.findOne({ name: shopname });
 }
 
 async function isShopExistsForUser(userId) {
