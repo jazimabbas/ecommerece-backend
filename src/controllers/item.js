@@ -1,3 +1,4 @@
+const fs = require("fs/promises");
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/item");
 const itemService = require("../services/mogno/item");
@@ -27,22 +28,14 @@ async function createItem(req, res) {
       "Please upload featured image. This is required field"
     );
   }
-  // if (!req.files.image) {
-  //   throwValidationErrors("Please upload item images. This is required field");
-  // }
-  // if (req.files.image.length < 3) {
-  //   throwValidationErrors("Please upload min 3 item images");
-  // }
 
-  // const images = req.files?.image?.map((file) => file.filename);
-  const featuredImage = req.files.featured[0].filename;
-
-  const s3Object = await uploadToS3(req.files.featured[0]);
+  const file = req.files.featured[0];
+  const s3Object = await uploadToS3(file);
+  await fs.unlink(file.path);
 
   const item = await itemService.createNewitem({
     ...cleanFields,
     featuredImage: s3Object.Location,
-    // images,
   });
   res.send({ item });
 }
