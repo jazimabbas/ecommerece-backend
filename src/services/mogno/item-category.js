@@ -2,14 +2,13 @@ const db = require("../../db");
 const Exceptions = require("../../utils/custom-exceptions");
 
 async function getAllCategoriesForShop(shopId) {
-  return db.ItemCategory.findAll({ where: { shopId } });
+  return db.ItemCategory.find({ shopId });
 }
 
 async function createNewCategory(categoryFields) {
   const { name, shopId } = categoryFields;
-  const categoryInDb = await db.ItemCategory.findOne({
-    where: { name, shopId },
-  });
+
+  const categoryInDb = await db.ItemCategory.findOne({ name, shopId });
   if (categoryInDb) {
     throw new Exceptions.BadRequestException(
       "Category already exists. Please try different"

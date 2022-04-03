@@ -1,10 +1,10 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/item-category");
-const categoryService = require("../services/item-category");
+const categoryService = require("../services/mogno/item-category");
 
 async function getAllCategories(req, res) {
   const categories = await categoryService.getAllCategoriesForShop(
-    +req.params.shopId
+    req.params.shopId
   );
   res.send({ categories });
 }

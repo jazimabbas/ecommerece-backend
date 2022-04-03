@@ -9,3 +9,5 @@ const itemCategorySchema = new mongoose.Schema({
 });
 
 const ItemCategory = mongoose.model("ItemCategory", itemCategorySchema);
+
+module.exports = ItemCategory;
