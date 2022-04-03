@@ -53,9 +53,10 @@ async function filteredItems(filterOptions) {
 }
 
 async function singleItem(itemId) {
-  return db.Item.findByPk(itemId, {
-    include: [{ model: db.Shop }, { model: db.ItemImage }],
-  });
+  //   return db.Item.findByPk(itemId, {
+  //     include: [{ model: db.Shop }, { model: db.ItemImage }],
+  //   });
+  return db.Item.findById(itemId).populate("shopId");
 }
 
 async function createNewitem(itemFields) {

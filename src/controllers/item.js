@@ -1,6 +1,6 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/item");
-const itemService = require("../services/item");
+const itemService = require("../services/mogno/item");
 const Exceptions = require("../utils/custom-exceptions");
 
 async function listAllItems(req, res) {
@@ -14,7 +14,7 @@ async function filteredItems(req, res) {
 }
 
 async function singleItem(req, res) {
-  const item = await itemService.singleItem(+req.params.id);
+  const item = await itemService.singleItem(req.params.id);
   res.send({ item });
 }
 
@@ -45,7 +45,7 @@ async function createItem(req, res) {
 
 async function updateItem(req, res) {
   const cleanFields = await validate(validations.updateItemSchema, req.body);
-  await itemService.updateItem(+req.params.id, cleanFields);
+  await itemService.updateItem(req.params.id, cleanFields);
   res.send({ message: "Successfully updated item" });
 }
 
