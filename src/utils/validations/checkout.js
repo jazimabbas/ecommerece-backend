@@ -6,7 +6,7 @@ const checkoutSchema = yup.object().shape({
     .min(1)
     .of(
       yup.object().shape({
-        itemId: yup.number().required(),
+        itemId: yup.string().required(),
         quantity: yup.number().required(),
       })
     )
