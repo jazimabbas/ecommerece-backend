@@ -1,6 +1,6 @@
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/user");
-const userService = require("../services/user");
+const userService = require("../services/mogno/user");
 
 async function updateProfile(req, res) {
   const cleanFields = await validate(validations.profileSchema, req.body);
