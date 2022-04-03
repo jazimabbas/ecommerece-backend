@@ -35,7 +35,20 @@ async function filteredItems(filterOptions) {
   }
 
   const nameQuery = { name: { $regex: ".*" + searchVal + ".*" } };
-  return db.Item.find({ ...nameQuery }).select("name price quantity featuredImage");
+  let priceQuery = {};
+  if (priceRange) {
+    const { min, max } = priceRange;
+    if (!max) {
+      priceQuery = { price: { $gte: min ?? 1 } };
+    } else {
+      priceQuery = { price: { $gte: min ?? 1, $lte: max } };
+    }
+  }
+
+  console.log("pricequery: ", priceQuery);
+  return db.Item.find({ ...nameQuery, ...priceQuery }).select(
+    "name price quantity featuredImage"
+  );
 
   return await db.sequelize.query(
     `
