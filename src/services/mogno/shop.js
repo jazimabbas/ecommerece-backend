@@ -20,9 +20,7 @@ async function getShopDetails(userId) {
 }
 
 async function getShopItems(shopId) {
-  //   return db.Item.findAll({ where: { shopId }, include: db.ItemCategory });
-  // TODO: must populate item-category
-  // TODO: must implement this
+  return db.Item.find({ shopId }).populate("categoryId");
 }
 
 async function createNewShop(shopFields) {
