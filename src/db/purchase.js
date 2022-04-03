@@ -1,15 +1,19 @@
 const mongoose = require("mongoose");
 
 const purchaseSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  image: String,
+  itemName: String,
+  itemImage: String,
+  itemQuantity: String,
+  itemPrice: Number,
+  orderId: String,
+  purchasedDate: Date,
   userId: {
-    type: mongoose.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
+  },
+  shopId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Shop",
   },
 });
 

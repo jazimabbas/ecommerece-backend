@@ -13,7 +13,10 @@ const itemSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Shop",
   },
-  salesCount: Number,
+  salesCount: {
+    type: Number,
+    default: 0,
+  },
   featuredImage: String,
 });
 

@@ -38,12 +38,7 @@ async function checkout(userId, items) {
     throw new Exceptions.ValidationException("Items Quantity Differs", errors);
   }
 
-  return itemsInDb;
-
-  let trans;
   try {
-    trans = await db.sequelize.transaction();
-
     const orderId = uuidv4();
     const purchases = items.map((item) => {
       const itemInDb = itemsInDbObj[item.itemId];
@@ -59,24 +54,26 @@ async function checkout(userId, items) {
         orderId,
       };
     });
-    await db.Purchase.bulkCreate(purchases, { transaction: trans });
+
+    for (let i = 0; i < purchases.length; i++) {
+        await db.Purchase.create(purchases[i]);
+    }
 
     for (let i = 0; i < items.length; i++) {
       const item = items[i];
       const itemInDb = itemsInDbObj[item.itemId];
 
-      await db.Item.update(
+      await db.Item.findOneAndUpdate(
+        { _id: item.itemId },
         {
-          quantity: itemInDb.quantity - item.quantity,
-          salesCount: itemInDb.salesCount + item.quantity,
-        },
-        { where: { id: item.itemId }, transaction: trans }
+          $set: {
+            quantity: itemInDb.quantity - item.quantity,
+            salesCount: itemInDb.salesCount + item.quantity,
+          },
+        }
       );
     }
-
-    await trans.commit();
   } catch (err) {
-    await trans.rollback();
     console.log("error: ", err);
     throw new Exceptions.BadRequestException("Error while doing a checkout");
   }
