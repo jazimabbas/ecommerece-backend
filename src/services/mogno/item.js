@@ -51,9 +51,20 @@ async function filteredItems(filterOptions) {
 
   console.log("pricequery: ", priceQuery);
   console.log("stockQuery: ", stockQuery);
-  return db.Item.find({ ...nameQuery, ...priceQuery, ...stockQuery }).select(
-    "name price quantity featuredImage"
-  );
+  const filteredItems = db.Item.find({
+    ...nameQuery,
+    ...priceQuery,
+    ...stockQuery,
+  }).select("name price quantity featuredImage");
+
+  if (sort) {
+    let { sortKey, sortOrder } = sort;
+    sortOrder = sortOrder ?? "asc";
+
+    filteredItems.sort({ [sortKey]: sortOrder === "asc" ? 1 : -1 });
+  }
+
+  return filteredItems;
 
   return await db.sequelize.query(
     `
