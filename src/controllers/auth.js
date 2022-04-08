@@ -15,7 +15,7 @@ async function login(req, res) {
 
   const userFields = user.excludePasswordField();
   const token = user.generateToken();
-  res.send({ user: { ...userFields, token } });
+  res.send({ user: { ...userFields, token, id: userFields._id } });
 }
 
 module.exports = { register, login };
