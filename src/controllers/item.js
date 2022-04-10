@@ -46,12 +46,18 @@ async function updateItem(req, res) {
   res.send({ message: "Successfully updated item" });
 }
 
+async function deleteItem(req, res) {
+  await itemService.deleteItem(req.params.id);
+  res.send({ message: "Successfully deleted item" });
+}
+
 module.exports = {
   listAllItems,
   filteredItems,
   singleItem,
   createItem,
   updateItem,
+  deleteItem,
 };
 
 function throwValidationErrors(err) {

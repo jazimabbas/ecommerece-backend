@@ -4,6 +4,7 @@ async function getAllFavs(req, res) {
   const favorites = await favService.getAllFavs(req.user.id);
   const favItems = favorites.map((fav) => {
     return {
+      _id : fav.itemId._id,
       name: fav.itemId.name,
       price: fav.itemId.price,
       featuredImage: fav.itemId.featuredImage,

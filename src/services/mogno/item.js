@@ -29,7 +29,8 @@ async function filteredItems(filterOptions) {
     ...stockQuery,
   }).select("name price quantity featuredImage");
 
-  if (sort) {
+  if (sort && sort.sortKey) {
+    console.log("sort key present");
     let { sortKey, sortOrder } = sort;
     sortOrder = sortOrder ?? "asc";
 
@@ -59,10 +60,15 @@ async function updateItem(id, itemFields) {
   await db.Item.findByIdAndUpdate(id, { $set: { ...itemFields } });
 }
 
+async function deleteItem(id) {
+  await db.Item.findByIdAndDelete(id);
+}
+
 module.exports = {
   listAllItems,
   filteredItems,
   singleItem,
   createNewitem,
   updateItem,
+  deleteItem,
 };
