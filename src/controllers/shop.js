@@ -1,6 +1,8 @@
+const fs = require("fs/promises");
 const validate = require("../utils/validations");
 const validations = require("../utils/validations/shop");
 const shopService = require("../services/mogno/shop");
+const uploadToS3 = require("../utils/aws/upload-to-s3");
 
 async function checkShopAvailablity(req, res) {
   const cleanFields = await validate(
@@ -44,11 +46,16 @@ async function createShop(req, res) {
 }
 
 async function updateShop(req, res) {
-  const image = req.file ? req.file.filename : "";
   const cleanFields = await validate(validations.updateShopSchema, req.body);
+
+  if (req.file) {
+    const s3Object = await uploadToS3(req.file);
+    await fs.unlink(req.file.path);
+    cleanFields["image"] = s3Object.Location;
+  }
+
   const updatedShop = await shopService.updateShop(req.params.id, {
     ...cleanFields,
-    image,
   });
   res.send({ shop: updatedShop });
 }

@@ -41,7 +41,7 @@ async function updateShop(shopId, shopFields) {
   }
 
   try {
-    return await db.Shop.findOneAndUpdate({ _id: shopId }, { ...shopFields });
+    return await db.Shop.findOneAndUpdate({ _id: shopId }, { ...shopFields }, { upsert: true});
   } catch (err) {
     throw new Exceptions.BadRequestException("Shop already exists");
   }
