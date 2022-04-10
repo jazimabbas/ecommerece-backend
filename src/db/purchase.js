@@ -15,6 +15,11 @@ const purchaseSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Shop",
   },
+  isGift: {
+    type: Boolean,
+    default: false,
+  },
+  description: String,
 });
 
 const Purchase = mongoose.model("Purchase", purchaseSchema);
