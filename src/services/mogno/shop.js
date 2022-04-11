@@ -12,7 +12,9 @@ async function isShopExistsForUser(userId) {
 async function singleShopDetail(shopId) {
   //   return await db.Shop.findByPk(shopId, { include: db.Item });
   // TODO: must populate item
-  return await db.Shop.findById(shopId);
+  const items = await db.Item.find({ shopId });
+  const shop = await db.Shop.findById(shopId);
+  return { shop, items };
 }
 
 async function getShopDetails(userId) {
@@ -41,7 +43,11 @@ async function updateShop(shopId, shopFields) {
   }
 
   try {
-    return await db.Shop.findOneAndUpdate({ _id: shopId }, { ...shopFields }, { upsert: true});
+    return await db.Shop.findOneAndUpdate(
+      { _id: shopId },
+      { ...shopFields },
+      { upsert: true }
+    );
   } catch (err) {
     throw new Exceptions.BadRequestException("Shop already exists");
   }
