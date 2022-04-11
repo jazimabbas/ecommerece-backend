@@ -4,7 +4,6 @@ const express = require("express");
 const fs = require("fs");
 require("express-async-errors");
 const dbConnect = require("./db/connect");
-const db = require("./models");
 const allRoutes = require("./routes");
 const catchUnhandleExceptions = require("./middlewares/exception-handling");
 
