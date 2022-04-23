@@ -11,6 +11,8 @@ const createItemSchema = yup.object().shape({
 
 const updateItemSchema = yup.object().shape({
   price: yup.number().min(1).required(),
+  categoryId: yup.string().required(),
+  name: yup.string().required(),
 });
 
 module.exports = { createItemSchema, updateItemSchema };
