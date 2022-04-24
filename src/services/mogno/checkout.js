@@ -3,7 +3,7 @@ const { v4: uuidv4 } = require("uuid");
 const db = require("../../db");
 const Exceptions = require("../../utils/custom-exceptions");
 
-async function checkout(userId, items, isGift, description) {
+async function checkout(userId, items) {
   const itemsInDb = await db.Item.find({
     id: { $in: items.map((item) => item.itemId) },
   });
@@ -50,8 +50,8 @@ async function checkout(userId, items, isGift, description) {
         itemPrice: itemInDb.price,
         purchasedDate: new Date(),
         orderId,
-        isGift,
-        description,
+        isGift: item.isGift ?? false,
+        description: item.description ?? "",
       };
     });
 

@@ -11,8 +11,6 @@ const checkoutSchema = yup.object().shape({
       })
     )
     .required(),
-  isGift: yup.boolean().notRequired(),
-  description: yup.string().notRequired(),
 });
 
 module.exports = { checkoutSchema };
