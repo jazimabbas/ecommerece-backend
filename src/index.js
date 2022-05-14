@@ -3,6 +3,7 @@ const config = require("config");
 const express = require("express");
 const fs = require("fs");
 require("express-async-errors");
+const { graphqlUploadExpress } = require("graphql-upload");
 const dbConnect = require("./db/connect");
 const allRoutes = require("./routes");
 const graphqlRoute = require("./graphql");
@@ -12,7 +13,11 @@ const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.static("uploads"));
 app.use(express.json());
-app.use("/graphql", graphqlRoute);
+app.use(
+  "/graphql",
+  graphqlUploadExpress({ maxFileSize: 10000000, maxFiles: 5 }),
+  graphqlRoute
+);
 app.use("/", allRoutes);
 app.use(catchUnhandleExceptions);
 
