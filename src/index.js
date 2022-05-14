@@ -5,12 +5,14 @@ const fs = require("fs");
 require("express-async-errors");
 const dbConnect = require("./db/connect");
 const allRoutes = require("./routes");
+const graphqlRoute = require("./graphql");
 const catchUnhandleExceptions = require("./middlewares/exception-handling");
 
 const app = express();
 app.use(cors({ origin: "*" }));
 app.use(express.static("uploads"));
 app.use(express.json());
+app.use("/graphql", graphqlRoute);
 app.use("/", allRoutes);
 app.use(catchUnhandleExceptions);
 
