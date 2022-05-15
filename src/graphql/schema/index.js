@@ -14,6 +14,7 @@ const graphqlSchema = buildSchema(`
         updateShop(shopId: String, name: String): ReturnPayload
         checkShopAvailablity(name: String): ReturnPayload
         shopExistsForUser(userId: String): ReturnPayload
+        getShopDetails: ReturnPayload
 
         createCategory(name: String, shopId: String): ReturnPayload
     }

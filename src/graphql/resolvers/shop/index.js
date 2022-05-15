@@ -14,6 +14,11 @@ exports.shopExistsForUser = async function (shopPayload) {
   return { data: JSON.stringify({ isShopExists }) };
 };
 
+exports.getShopDetails = combineResolvers(isAuth, async function (_, args) {
+  const shop = await shopService.getShopDetails(args._auth.id);
+  return { data: JSON.stringify(shop) };
+});
+
 exports.createShop = combineResolvers(
   isAuth,
   async function (shopPayload, args) {
