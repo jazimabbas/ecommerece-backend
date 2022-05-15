@@ -8,7 +8,7 @@ const graphqlSchema = buildSchema(`
     type Mutation {
         register(name: String!, email: String!, password: String!): ReturnPayload
         login(email: String!, password: String!): ReturnPayload
-        updateProfile(user: UpdateUserPayload): ReturnPayload
+        updateProfile(user: UpdateUserPayload, image: Upload): ReturnPayload
 
         createShop(name: String): ReturnPayload
         updateShop(shopId: String, name: String): ReturnPayload
