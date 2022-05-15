@@ -23,6 +23,7 @@ const graphqlSchema = buildSchema(`
         allCategories(shopId: String): ReturnPayload
 
         createItem(item: CreateItemPayload): ReturnPayload
+        updateItem(id: String, item: UpdateItemPayload): ReturnPayload
     }
 
     scalar Upload
@@ -49,6 +50,12 @@ const graphqlSchema = buildSchema(`
         price: Int
         quantity: Int
         shopId: String
+    }
+
+    input UpdateItemPayload {
+        price: Int
+        categoryId: String
+        name: String
     }
 `);
 
