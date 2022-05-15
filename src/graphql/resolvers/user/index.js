@@ -7,7 +7,6 @@ exports.updateProfile = combineResolvers(
   isAuth,
   async function (userPayload, args) {
     const { user: userData } = userPayload;
-    console.log("userpayload: ", userPayload);
 
     if (userPayload.image) {
       const { createReadStream, filename } = await userPayload.image.file;

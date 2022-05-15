@@ -22,7 +22,7 @@ const graphqlSchema = buildSchema(`
         updateCategory(id: String, name: String, shopId: String): ReturnPayload
         allCategories(shopId: String): ReturnPayload
 
-        createItem(item: CreateItemPayload): ReturnPayload
+        createItem(item: CreateItemPayload, featured: Upload): ReturnPayload
         updateItem(id: String, item: UpdateItemPayload): ReturnPayload
         singleItem(id: String): ReturnPayload
         allItems: ReturnPayload

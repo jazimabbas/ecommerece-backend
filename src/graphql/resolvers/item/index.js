@@ -1,4 +1,6 @@
 const itemService = require("../../../services/mogno/item");
+const Exceptions = require("../../../utils/custom-exceptions");
+const uploadToS3 = require("../../../utils/aws/graphql-upload-to-s3");
 
 exports.allItems = async function () {
   const items = await itemService.listAllItems();
@@ -11,8 +13,20 @@ exports.singleItem = async function (itemPayload) {
 };
 
 exports.createItem = async function (itemPayload) {
+  if (!itemPayload.featured) {
+    throw new Exceptions.BadRequestException("Please upload featured image");
+  }
+
+  const { createReadStream, filename } = await itemPayload.featured.file;
+  const stream = createReadStream();
+  const s3Object = await uploadToS3({ stream, filename });
+  const featuredImage = s3Object.Location;
+
   const itemFields = itemPayload.item;
-  const item = await itemService.createNewitem(itemFields);
+  const item = await itemService.createNewitem({
+    ...itemFields,
+    featuredImage,
+  });
   return { message: "create item", data: JSON.stringify(item) };
 };
 
