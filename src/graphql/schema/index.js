@@ -10,6 +10,7 @@ const graphqlSchema = buildSchema(`
         login(email: String!, password: String!): ReturnPayload
         updateProfile(user: UpdateUserPayload): ReturnPayload
         createShop(name: String): ReturnPayload
+        updateShop(shopId: String, name: String): ReturnPayload
         createCategory(name: String, shopId: String): ReturnPayload
     }
 
