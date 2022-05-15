@@ -19,6 +19,11 @@ exports.getShopDetails = combineResolvers(isAuth, async function (_, args) {
   return { data: JSON.stringify(shop) };
 });
 
+exports.getSingleShopDetail = async function (shopPayload) {
+  const shop = await shopService.singleShopDetail(shopPayload.shopId);
+  return { data: JSON.stringify(shop) };
+};
+
 exports.createShop = combineResolvers(
   isAuth,
   async function (shopPayload, args) {
