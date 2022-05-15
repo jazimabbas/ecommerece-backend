@@ -1,5 +1,10 @@
 const itemService = require("../../../services/mogno/item");
 
+exports.allItems = async function () {
+  const items = await itemService.listAllItems();
+  return { data: JSON.stringify(items) };
+};
+
 exports.singleItem = async function (itemPayload) {
   const item = await itemService.singleItem(itemPayload.id);
   return { data: JSON.stringify(item) };
