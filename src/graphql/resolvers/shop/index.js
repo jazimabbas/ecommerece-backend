@@ -2,6 +2,12 @@ const { combineResolvers } = require("graphql-resolvers");
 const isAuth = require("../../middlewares/is-auth");
 const shopService = require("../../../services/mogno/shop");
 
+exports.checkShopAvailablity = async function (shopPayload) {
+  const shop = await shopService.isShopAvailable(shopPayload.name);
+  const isAvailable = shop ? false : true;
+  return { data: JSON.stringify({ isAvailable }) };
+};
+
 exports.createShop = combineResolvers(
   isAuth,
   async function (shopPayload, args) {
