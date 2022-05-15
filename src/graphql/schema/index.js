@@ -19,6 +19,7 @@ const graphqlSchema = buildSchema(`
         getShopItems(shopId: String): ReturnPayload
 
         createCategory(name: String, shopId: String): ReturnPayload
+        updateCategory(id: String, name: String, shopId: String): ReturnPayload
     }
 
     scalar Upload
