@@ -3,6 +3,11 @@ const { buildSchema } = require("graphql");
 const graphqlSchema = buildSchema(`
     type Query {
         sample: String
+
+        getSingleShopDetail(shopId: String): ReturnPayload
+
+        allItems: ReturnPayload
+        singleItem(id: String): ReturnPayload
     }
 
     type Mutation {
@@ -15,7 +20,7 @@ const graphqlSchema = buildSchema(`
         checkShopAvailablity(name: String): ReturnPayload
         shopExistsForUser(userId: String): ReturnPayload
         getShopDetails: ReturnPayload
-        getSingleShopDetail(shopId: String): ReturnPayload
+        
         getShopItems(shopId: String): ReturnPayload
 
         createCategory(name: String, shopId: String): ReturnPayload
@@ -24,10 +29,9 @@ const graphqlSchema = buildSchema(`
 
         createItem(item: CreateItemPayload, featured: Upload): ReturnPayload
         updateItem(id: String, item: UpdateItemPayload): ReturnPayload
-        singleItem(id: String): ReturnPayload
-        allItems: ReturnPayload
+        
+        
         deleteItem(id: String): ReturnPayload
-
         createCheckout(items: [CreateCheckoutPayload]): ReturnPayload
 
         allPurchases: ReturnPayload
