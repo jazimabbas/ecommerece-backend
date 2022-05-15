@@ -9,9 +9,12 @@ const graphqlSchema = buildSchema(`
         register(name: String!, email: String!, password: String!): ReturnPayload
         login(email: String!, password: String!): ReturnPayload
         updateProfile(user: UpdateUserPayload): ReturnPayload
+
         createShop(name: String): ReturnPayload
         updateShop(shopId: String, name: String): ReturnPayload
         checkShopAvailablity(name: String): ReturnPayload
+        shopExistsForUser(userId: String): ReturnPayload
+
         createCategory(name: String, shopId: String): ReturnPayload
     }
 

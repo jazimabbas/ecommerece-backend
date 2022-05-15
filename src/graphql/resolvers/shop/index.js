@@ -8,10 +8,19 @@ exports.checkShopAvailablity = async function (shopPayload) {
   return { data: JSON.stringify({ isAvailable }) };
 };
 
+exports.shopExistsForUser = async function (shopPayload) {
+  const shop = await shopService.isShopExistsForUser(shopPayload.userId);
+  const isShopExists = shop ? true : false;
+  return { data: JSON.stringify({ isShopExists }) };
+};
+
 exports.createShop = combineResolvers(
   isAuth,
   async function (shopPayload, args) {
-    const newShop = await shopService.createNewShop(shopPayload, args._auth.id);
+    const newShop = await shopService.createNewShop({
+      ...shopPayload,
+      userId: args._auth.id,
+    });
     return { message: "create new shop", data: JSON.stringify(newShop) };
   }
 );
