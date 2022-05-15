@@ -22,3 +22,8 @@ exports.updateItem = async function (itemPayload) {
   await itemService.updateItem(id, itemFields);
   return { message: "Item successfully updated" };
 };
+
+exports.deleteItem = async function (itemPayload) {
+  await itemService.deleteItem(itemPayload.id);
+  return { message: "Successfully deleted item" };
+};

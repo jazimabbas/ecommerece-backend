@@ -26,6 +26,7 @@ const graphqlSchema = buildSchema(`
         updateItem(id: String, item: UpdateItemPayload): ReturnPayload
         singleItem(id: String): ReturnPayload
         allItems: ReturnPayload
+        deleteItem(id: String): ReturnPayload
     }
 
     scalar Upload
