@@ -11,7 +11,7 @@ const graphqlSchema = buildSchema(`
         updateProfile(user: UpdateUserPayload, image: Upload): ReturnPayload
 
         createShop(name: String): ReturnPayload
-        updateShop(shopId: String, name: String): ReturnPayload
+        updateShop(shopId: String, name: String, image: Upload): ReturnPayload
         checkShopAvailablity(name: String): ReturnPayload
         shopExistsForUser(userId: String): ReturnPayload
         getShopDetails: ReturnPayload

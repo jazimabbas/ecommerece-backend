@@ -1,6 +1,7 @@
 const { combineResolvers } = require("graphql-resolvers");
 const isAuth = require("../../middlewares/is-auth");
 const shopService = require("../../../services/mogno/shop");
+const uploadToS3 = require("../../../utils/aws/graphql-upload-to-s3");
 
 exports.checkShopAvailablity = async function (shopPayload) {
   const shop = await shopService.isShopAvailable(shopPayload.name);
@@ -42,6 +43,15 @@ exports.createShop = combineResolvers(
 
 exports.updateShop = async function (shopPayload) {
   const { shopId, name } = shopPayload;
-  const updatedShop = await shopService.updateShop(shopId, { name });
+
+  const shopFields = { name };
+  if (shopPayload.image) {
+    const { createReadStream, filename } = await shopPayload.image.file;
+    const stream = createReadStream();
+    const s3Object = await uploadToS3({ stream, filename });
+    shopFields["image"] = s3Object.Location;
+  }
+
+  const updatedShop = await shopService.updateShop(shopId, { ...shopFields });
   return { message: "Update shop", data: JSON.stringify(updatedShop) };
 };
