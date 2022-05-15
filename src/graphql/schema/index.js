@@ -29,6 +29,8 @@ const graphqlSchema = buildSchema(`
         deleteItem(id: String): ReturnPayload
 
         createCheckout(items: [CreateCheckoutPayload]): ReturnPayload
+
+        allPurchases: ReturnPayload
     }
 
     scalar Upload
