@@ -27,6 +27,8 @@ const graphqlSchema = buildSchema(`
         singleItem(id: String): ReturnPayload
         allItems: ReturnPayload
         deleteItem(id: String): ReturnPayload
+
+        createCheckout(items: [CreateCheckoutPayload]): ReturnPayload
     }
 
     scalar Upload
@@ -59,6 +61,13 @@ const graphqlSchema = buildSchema(`
         price: Int
         categoryId: String
         name: String
+    }
+
+    input CreateCheckoutPayload {
+        itemId: String
+        quantity: Int
+        isGift: Boolean
+        description: String
     }
 `);
 
